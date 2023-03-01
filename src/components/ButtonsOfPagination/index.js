@@ -1,0 +1,1 @@
+export { ButtonsOfPagination } from './ButtonsOfPagination';

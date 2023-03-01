@@ -1,6 +1,7 @@
 import './App.css';
+import { ButtonsOfPagination } from './components/ButtonsOfPagination';
 import { CarCreationMenu } from './components/CarCreationMenu';
-import { Road } from './components/Road/';
+import { Road } from './components/Road';
 
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
       </header>
       <main>
         <CarCreationMenu />
+        <h2>Garage(4)</h2>
+        <h3>Page#1</h3>
+        <ButtonsOfPagination />
         <Road />
       </main>
       <footer>
