@@ -14,7 +14,9 @@ function App() {
         <Road />
       </main>
       <footer>
-        <a href="https://github.com/Businator">Businator</a>
+        <a href="https://github.com/Businator" target="_blank" rel="noreferrer">
+          Businator
+        </a>
       </footer>
     </div>
   );
