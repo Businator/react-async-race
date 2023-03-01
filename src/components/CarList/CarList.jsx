@@ -15,7 +15,9 @@ export const CarList = () => {
     getCarsData();
   }, []);
 
-  const carList = cars.map((car) => <Car key={car.id} car={car} />);
+  const carList = cars.map((car) => (
+    <Car key={car.id} car={car} getCar={setCars} />
+  ));
 
   return <section>{carList}</section>;
 };

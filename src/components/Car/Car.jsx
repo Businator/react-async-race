@@ -5,11 +5,11 @@ import { Flag } from './components/Flag';
 
 import styles from './Car.module.css';
 
-export const Car = ({ car }) => {
+export const Car = ({ car, getCar }) => {
   const { color, name, id } = car;
   return (
     <div>
-      <ChangeCarButtons name={name} id={id} />
+      <ChangeCarButtons name={name} id={id} getCar={getCar} />
       <div className={styles.road}>
         <CarImg color={color} />
         <Flag />
