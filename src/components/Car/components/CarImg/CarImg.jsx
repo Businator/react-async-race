@@ -1,6 +1,6 @@
 import styles from './CarImg.module.css';
 
-export const CarImg = () => {
+export const CarImg = ({ color }) => {
   return (
     <div className={styles.container}>
       <svg
@@ -13,7 +13,7 @@ export const CarImg = () => {
       >
         <g
           transform="translate(0.000000,640.000000) scale(0.100000,-0.100000)"
-          fill="#000000"
+          fill={color}
           stroke="none"
         >
           <path

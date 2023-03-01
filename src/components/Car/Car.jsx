@@ -3,14 +3,14 @@ import { CarImg } from './components/CarImg';
 import { ChangeCarButtons } from './components/ChangeCarButtons';
 import { Flag } from './components/Flag';
 
-import styles from './Road.module.css';
+import styles from './Car.module.css';
 
-export const Road = () => {
+export const Car = ({ color, name, id }) => {
   return (
     <div>
-      <ChangeCarButtons />
+      <ChangeCarButtons name={name} />
       <div className={styles.road}>
-        <CarImg />
+        <CarImg color={color} />
         <Flag />
       </div>
       <ActionButtons />
