@@ -1,10 +1,10 @@
 import './App.css';
-import { CarImg } from './components/CarImg';
+import { Road } from './components/Road/';
 
 function App() {
   return (
     <div className="App">
-      <CarImg />
+      <Road />
     </div>
   );
 }
