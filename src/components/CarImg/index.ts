@@ -1,0 +1,1 @@
+export { CarImg } from './CarImg'
