@@ -1,4 +1,5 @@
 import './App.css';
+import { CarCreationMenu } from './components/CarCreationMenu';
 import { Road } from './components/Road/';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
         <button>To Winners</button>
       </header>
       <main>
+        <CarCreationMenu />
         <Road />
       </main>
       <footer>
