@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   const carList = carContext.cars.map((car) => {
-    return <Car key={car.id} car={car} />;
+    return <Car key={Math.random()} car={car} />;
   });
 
   return (

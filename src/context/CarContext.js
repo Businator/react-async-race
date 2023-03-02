@@ -1,13 +1,14 @@
 import { useReducer, createContext } from 'react';
-import { deleteCar, updateCar } from '../api';
+import { createCar, deleteCar, getCars, updateCar } from '../api';
 
 export const CarContext = createContext({
   cars: [],
   selectedCar: 0,
-  addCars: (car) => {},
-  removeCar: (id) => {},
-  selectCar: (id) => {},
-  updateCar: (id, car) => {},
+  addCars: () => {},
+  createCar: () => {},
+  removeCar: () => {},
+  selectCar: () => {},
+  updateCar: () => {},
 });
 
 const defaultCarState = {
@@ -17,10 +18,8 @@ const defaultCarState = {
 
 const carReducer = (state, action) => {
   if (action.type === 'ADD_CARS') {
-    const carList = [...action.cars];
-
     return {
-      cars: carList,
+      cars: action.cars,
     };
   }
 
@@ -33,7 +32,7 @@ const carReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'REMOVE_CAR') {
+  if (action.type === 'DELETE_CAR') {
     const existingCarIndex = state.cars.findIndex(
       (car) => car.id === action.id
     );
@@ -44,6 +43,16 @@ const carReducer = (state, action) => {
 
     return {
       cars: updatedCarList,
+    };
+  }
+
+  if (action.type === 'CREATE_CAR') {
+    createCar(action.car);
+
+    state.cars.push(action.car);
+
+    return {
+      cars: state.cars,
     };
   }
 
@@ -80,6 +89,13 @@ export const CarContextProvider = ({ children }) => {
     });
   };
 
+  const createCarHandler = (car) => {
+    dispatchCarAction({
+      type: 'CREATE_CAR',
+      car: car,
+    });
+  };
+
   const selectCarHandler = (id) => {
     dispatchCarAction({
       type: 'SELECT_CAR',
@@ -89,7 +105,7 @@ export const CarContextProvider = ({ children }) => {
 
   const removeCarHandler = (id) => {
     dispatchCarAction({
-      type: 'REMOVE_CAR',
+      type: 'DELETE_CAR',
       id: id,
     });
   };
@@ -106,6 +122,7 @@ export const CarContextProvider = ({ children }) => {
     cars: carState.cars,
     selectedCar: carState.selectedCar,
     addCars: addCarsHandler,
+    createCar: createCarHandler,
     selectCar: selectCarHandler,
     removeCar: removeCarHandler,
     updateCar: updateCarHandler,
