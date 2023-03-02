@@ -1,22 +1,23 @@
-import { deleteCar, getCars } from '../../../../api';
+import { deleteCar } from '../../../../api';
 import styles from './ChangeCarButtons.module.css';
 
-export const ChangeCarButtons = ({ name, id, getCar }) => {
-  const getCarsData = async () => {
-    const { items } = await getCars(1);
-    getCar(items);
-  };
+export const ChangeCarButtons = ({ name, id, setSelectedCar }) => {
   return (
     <div className={styles.container}>
       <button
         onClick={async () => {
           await deleteCar(id);
-          await getCarsData();
         }}
       >
         Delete
       </button>
-      <button onClick={() => console.log(id)}>Select</button>
+      <button
+        onClick={() => {
+          setSelectedCar(id);
+        }}
+      >
+        Select
+      </button>
       <p>{name}</p>
     </div>
   );
