@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import './App.css';
 import { ButtonsOfPagination } from './components/ButtonsOfPagination';
 import { CarCreationMenu } from './components/CarCreationMenu';
@@ -9,7 +9,6 @@ import { CarContext } from './context/CarContext';
 
 function App() {
   const carContext = useContext(CarContext);
-  const [selectedCar, setSelectedCar] = useState();
 
   useEffect(() => {
     const getCarsData = async () => {
@@ -21,7 +20,7 @@ function App() {
   }, []);
 
   const carList = carContext.cars.map((car) => {
-    return <Car key={car.id} car={car} setSelectedCar={setSelectedCar} />;
+    return <Car key={car.id} car={car} />;
   });
 
   return (
@@ -31,7 +30,7 @@ function App() {
         <button>To Winners</button>
       </header>
       <main>
-        <CarCreationMenu selectedCar={selectedCar} />
+        <CarCreationMenu />
         <h2>Garage(4)</h2>
         <h3>Page#1</h3>
         <ButtonsOfPagination />

@@ -3,17 +3,20 @@ import { deleteCar, updateCar } from '../api';
 
 export const CarContext = createContext({
   cars: [],
+  selectedCar: 0,
   addCars: (car) => {},
   removeCar: (id) => {},
+  selectCar: (id) => {},
   updateCar: (id, car) => {},
 });
 
 const defaultCarState = {
   cars: [],
+  selectedCar: 0,
 };
 
 const carReducer = (state, action) => {
-  if (action.type === 'ADD_ITEMS') {
+  if (action.type === 'ADD_CARS') {
     const carList = [...action.cars];
 
     return {
@@ -21,7 +24,16 @@ const carReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'REMOVE_ITEM') {
+  if (action.type === 'SELECT_CAR') {
+    const carId = action.id;
+
+    return {
+      ...state,
+      selectedCar: carId,
+    };
+  }
+
+  if (action.type === 'REMOVE_CAR') {
     const existingCarIndex = state.cars.findIndex(
       (car) => car.id === action.id
     );
@@ -35,7 +47,7 @@ const carReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'UPDATE_ITEM') {
+  if (action.type === 'UPDATE_CAR') {
     updateCar(action.id, action.car);
 
     const existingCarIndex = state.cars.findIndex(
@@ -63,20 +75,28 @@ export const CarContextProvider = ({ children }) => {
 
   const addCarsHandler = (cars) => {
     dispatchCarAction({
-      type: 'ADD_ITEMS',
+      type: 'ADD_CARS',
       cars: cars,
+    });
+  };
+
+  const selectCarHandler = (id) => {
+    dispatchCarAction({
+      type: 'SELECT_CAR',
+      id: id,
     });
   };
 
   const removeCarHandler = (id) => {
     dispatchCarAction({
-      type: 'REMOVE_ITEM',
+      type: 'REMOVE_CAR',
       id: id,
     });
   };
+
   const updateCarHandler = (id, car) => {
     dispatchCarAction({
-      type: 'UPDATE_ITEM',
+      type: 'UPDATE_CAR',
       id: id,
       car: car,
     });
@@ -84,7 +104,9 @@ export const CarContextProvider = ({ children }) => {
 
   const carContext = {
     cars: carState.cars,
+    selectedCar: carState.selectedCar,
     addCars: addCarsHandler,
+    selectCar: selectCarHandler,
     removeCar: removeCarHandler,
     updateCar: updateCarHandler,
   };

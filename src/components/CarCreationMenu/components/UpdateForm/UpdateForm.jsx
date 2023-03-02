@@ -1,8 +1,7 @@
 import { useContext, useState } from 'react';
-import { updateCar } from '../../../../api';
 import { CarContext } from '../../../../context/CarContext';
 
-export const UpdateForm = ({ selectedCar }) => {
+export const UpdateForm = () => {
   const [carName, setCarName] = useState('');
   const [carColor, setCarColor] = useState('#000000');
 
@@ -10,8 +9,10 @@ export const UpdateForm = ({ selectedCar }) => {
 
   const submit = (event) => {
     event.preventDefault();
-    carContext.updateCar(selectedCar, { name: carName, color: carColor });
-    // updateCar(selectedCar, { name: carName, color: carColor });
+    carContext.updateCar(carContext.selectedCar, {
+      name: carName,
+      color: carColor,
+    });
     setCarName('');
     setCarColor('#000000');
   };
