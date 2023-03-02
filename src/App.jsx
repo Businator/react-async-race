@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useCallback } from 'react';
 import './App.css';
 import { ButtonsOfPagination } from './components/ButtonsOfPagination';
 import { CarCreationMenu } from './components/CarCreationMenu';
@@ -10,17 +10,17 @@ import { CarContext } from './context/CarContext';
 function App() {
   const carContext = useContext(CarContext);
 
-  useEffect(() => {
-    const getCarsData = async () => {
-      const { items } = await getCars(1);
-      carContext.addCars(items);
-    };
+  const getCarsData = useCallback(async () => {
+    const { items } = await getCars(1);
+    carContext.addCars(items);
+  }, [carContext]);
 
+  useEffect(() => {
     getCarsData();
-  }, []);
+  });
 
   const carList = carContext.cars.map((car) => {
-    return <Car key={Math.random()} car={car} />;
+    return <Car key={car.id} car={car} />;
   });
 
   return (

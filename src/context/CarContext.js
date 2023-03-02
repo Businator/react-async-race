@@ -49,8 +49,6 @@ const carReducer = (state, action) => {
   if (action.type === 'CREATE_CAR') {
     createCar(action.car);
 
-    state.cars.push(action.car);
-
     return {
       cars: state.cars,
     };
