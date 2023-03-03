@@ -11,10 +11,10 @@ export const Car = ({ car }) => {
     <div>
       <ChangeCarButtons name={name} id={id} />
       <div className={styles.road}>
-        <CarImg color={color} />
+        <CarImg color={color} id={id} />
         <Flag />
       </div>
-      <ActionButtons />
+      <ActionButtons id={id} />
     </div>
   );
 };

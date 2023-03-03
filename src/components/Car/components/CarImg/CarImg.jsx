@@ -1,8 +1,8 @@
 import styles from './CarImg.module.css';
 
-export const CarImg = ({ color }) => {
+export const CarImg = ({ color, id }) => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} datatype={`car${id}`}>
       <svg
         version="1.0"
         xmlns="http://www.w3.org/2000/svg"
