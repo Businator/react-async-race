@@ -61,3 +61,42 @@ export const updateCar = async (id, car) => {
     throw new Error();
   }
 };
+
+export const startEngine = async (id) => {
+  try {
+    const response = await fetch(`${base}/engine?id=${id}&status=started`, {
+      method: 'PATCH',
+    });
+    return {
+      status: response.status,
+      result: await response.json(),
+    };
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const stopEngine = async (id) => {
+  try {
+    const response = await fetch(`${base}/engine?id=${id}&status=stopped`, {
+      method: 'PATCH',
+    });
+    return {
+      status: response.status,
+      result: await response.json(),
+    };
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const drive = async (id) => {
+  try {
+    const response = await fetch(`${base}/engine?id=${id}&status=drive`, {
+      method: 'PATCH',
+    });
+    return response.status;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
