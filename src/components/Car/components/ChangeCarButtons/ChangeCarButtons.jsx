@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
 import styles from './ChangeCarButtons.module.css';
 
-export const ChangeCarButtons = ({ name, id }) => {
+export const ChangeCarButtons = ({ setIsCreateNewCar, name, id }) => {
   const carContext = useContext(CarContext);
 
   const deleteCarHandler = (id) => {
@@ -14,6 +14,7 @@ export const ChangeCarButtons = ({ name, id }) => {
       <button
         onClick={async () => {
           deleteCarHandler(id);
+          setIsCreateNewCar(true);
         }}
       >
         Delete

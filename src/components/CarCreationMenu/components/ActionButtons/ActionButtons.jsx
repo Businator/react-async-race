@@ -3,9 +3,11 @@ import { CarContext } from '../../../../context/CarContext';
 import { generateRandomCars } from '../../../../utils/generateRandomCars';
 import { getCars } from '../../../../api';
 import { startDriving, stopDriving } from '../../../../utils/workWithDriving';
+import { PageContext } from '../../../../context/PageContext';
 
 export const ActionButtons = ({ setIsCreateNewCar }) => {
   const carContext = useContext(CarContext);
+  const pageContext = useContext(PageContext);
 
   const generateCars = () => {
     const randomCarsList = generateRandomCars();
@@ -14,13 +16,13 @@ export const ActionButtons = ({ setIsCreateNewCar }) => {
   };
 
   const raceAllCars = async () => {
-    const { items } = await getCars(1);
+    const { items } = await getCars(pageContext.page);
     const cars = items.map(async (car) => startDriving(car.id));
     Promise.race(cars);
   };
 
   const resetAllcar = async () => {
-    const { items } = await getCars(1);
+    const { items } = await getCars(pageContext.page);
     const cars = items.map(async (car) => stopDriving(car.id));
     Promise.all(cars);
   };
