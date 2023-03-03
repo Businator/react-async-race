@@ -2,10 +2,10 @@ import { ActionButtons } from './components/ActionButtons';
 import { CreationForm } from './components/CreationForm';
 import { UpdateForm } from './components/UpdateForm';
 
-export const CarCreationMenu = () => {
+export const CarCreationMenu = ({ setIsCreateNewCar }) => {
   return (
     <div>
-      <CreationForm />
+      <CreationForm setIsCreateNewCar={setIsCreateNewCar} />
       <UpdateForm />
       <ActionButtons />
     </div>

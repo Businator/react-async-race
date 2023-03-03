@@ -1,5 +1,5 @@
 import { useReducer, createContext } from 'react';
-import { createCar, deleteCar, getCars, updateCar } from '../api';
+import { createCar, deleteCar, updateCar } from '../api';
 
 export const CarContext = createContext({
   cars: [],

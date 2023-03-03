@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
 
-export const CreationForm = () => {
+export const CreationForm = ({ setIsCreateNewCar }) => {
   const [carName, setCarName] = useState('');
   const [carColor, setCarColor] = useState('#000000');
 
@@ -15,6 +15,7 @@ export const CreationForm = () => {
     });
     setCarName('');
     setCarColor('#000000');
+    setIsCreateNewCar(true);
   };
 
   return (
