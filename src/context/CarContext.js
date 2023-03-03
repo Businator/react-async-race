@@ -9,6 +9,7 @@ export const CarContext = createContext({
   removeCar: () => {},
   selectCar: () => {},
   updateCar: () => {},
+  generateCars: () => {},
 });
 
 const defaultCarState = {
@@ -75,6 +76,16 @@ const carReducer = (state, action) => {
       cars: state.cars,
     };
   }
+
+  if (action.type === 'GENERATE_CARS') {
+    const newCarsList = action.cars;
+
+    newCarsList.map((car) => createCar(car));
+
+    return {
+      cars: state.cars,
+    };
+  }
 };
 
 export const CarContextProvider = ({ children }) => {
@@ -116,6 +127,13 @@ export const CarContextProvider = ({ children }) => {
     });
   };
 
+  const generateCarsHandler = (cars) => {
+    dispatchCarAction({
+      type: 'GENERATE_CARS',
+      cars: cars,
+    });
+  };
+
   const carContext = {
     cars: carState.cars,
     selectedCar: carState.selectedCar,
@@ -124,6 +142,7 @@ export const CarContextProvider = ({ children }) => {
     selectCar: selectCarHandler,
     removeCar: removeCarHandler,
     updateCar: updateCarHandler,
+    generateCars: generateCarsHandler,
   };
 
   return (

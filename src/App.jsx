@@ -29,7 +29,9 @@ function App() {
   return (
     <div className="App">
       <header>
-        <button>To Garage</button>
+        <button onClick={() => console.log(carContext.selectedCar)}>
+          To Garage
+        </button>
         <button>To Winners</button>
       </header>
       <main>

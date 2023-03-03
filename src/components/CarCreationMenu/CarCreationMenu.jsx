@@ -7,7 +7,7 @@ export const CarCreationMenu = ({ setIsCreateNewCar }) => {
     <div>
       <CreationForm setIsCreateNewCar={setIsCreateNewCar} />
       <UpdateForm />
-      <ActionButtons />
+      <ActionButtons setIsCreateNewCar={setIsCreateNewCar} />
     </div>
   );
 };
