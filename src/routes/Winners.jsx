@@ -3,6 +3,7 @@ import { getWinners } from '../api';
 import { WinnersList } from '../components/WinnersList';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
 import { PaginationContextForWinnersPage } from '../context/PaginationContextForWinnersPage';
+import { ButtonsOfFilter } from '../components/ButtonsOfFilter';
 
 export const Winners = () => {
   const paginationContext = useContext(PaginationContextForWinnersPage);
@@ -17,7 +18,8 @@ export const Winners = () => {
     setWinners(result);
     setCountOnPage(totalCount);
     setIsUpdatePage(false);
-  }, [paginationContext]);
+    console.log(winners);
+  }, [paginationContext, winners]);
 
   useEffect(() => {
     getWinnersData();
@@ -31,6 +33,11 @@ export const Winners = () => {
         count={countOnPage}
         setIsUpdatePage={setIsUpdatePage}
         context={PaginationContextForWinnersPage}
+      />
+      <ButtonsOfFilter
+        winners={winners}
+        setIsUpdatePage={setIsUpdatePage}
+        setWinners={setWinners}
       />
       <WinnersList winners={winners} />
     </>

@@ -1,0 +1,1 @@
+export { ButtonsOfFilter } from './ButtonsOfFilter';

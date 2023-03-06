@@ -15,7 +15,7 @@ const createOrUpdateWinner = async ({ id, time }) => {
   if (status === 404) {
     createWinner({ id, wins: 1, time: roundNumber(time) });
   } else if (status === 200 && result.time > roundNumber(time)) {
-    updateWinner({ id, wins: result.wins++, time: roundNumber(time) });
+    updateWinner({ id, wins: result.wins + 1, time: roundNumber(time) });
   }
 };
 
