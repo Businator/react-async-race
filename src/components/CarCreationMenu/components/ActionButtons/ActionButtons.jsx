@@ -21,7 +21,7 @@ export const ActionButtons = ({ setIsCreateNewCar }) => {
     Promise.race(cars);
   };
 
-  const resetAllcar = async () => {
+  const resetAllCars = async () => {
     const { items } = await getCars(pageContext.page);
     const cars = items.map(async (car) => stopDriving(car.id));
     Promise.all(cars);
@@ -30,7 +30,7 @@ export const ActionButtons = ({ setIsCreateNewCar }) => {
   return (
     <div>
       <button onClick={async () => await raceAllCars()}>Race</button>
-      <button onClick={async () => await resetAllcar()}>Reset</button>
+      <button onClick={async () => await resetAllCars()}>Reset</button>
       <button onClick={generateCars}>Generate Cars</button>
     </div>
   );
