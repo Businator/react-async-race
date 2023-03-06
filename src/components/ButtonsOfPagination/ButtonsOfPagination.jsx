@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { PaginationContext } from '../../context/PaginationContext';
 
-export const ButtonsOfPagination = ({ count, setIsUpdatePage }) => {
-  const paginationContext = useContext(PaginationContext);
+export const ButtonsOfPagination = ({ count, setIsUpdatePage, context }) => {
+  const paginationContext = useContext(context);
   return (
     <div>
       <button

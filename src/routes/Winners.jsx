@@ -2,10 +2,10 @@ import { useEffect, useState, useContext, useCallback } from 'react';
 import { getWinners } from '../api';
 import { WinnersList } from '../components/WinnersList';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
-import { PaginationContext } from '../context/PaginationContext';
+import { PaginationContextForWinnersPage } from '../context/PaginationContextForWinnersPage';
 
 export const Winners = () => {
-  const paginationContext = useContext(PaginationContext);
+  const paginationContext = useContext(PaginationContextForWinnersPage);
 
   const [isUpdatePage, setIsUpdatePage] = useState(false);
   const [winners, setWinners] = useState([]);
@@ -30,6 +30,7 @@ export const Winners = () => {
       <ButtonsOfPagination
         count={countOnPage}
         setIsUpdatePage={setIsUpdatePage}
+        context={PaginationContextForWinnersPage}
       />
       <WinnersList winners={winners} />
     </>

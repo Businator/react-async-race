@@ -8,11 +8,12 @@ import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
 import { CarList } from '../components/CarList';
 
 export const Garage = () => {
+  const paginationContext = useContext(PaginationContext);
+
   const [isCreateNewCar, setIsCreateNewCar] = useState(false);
   const [countOnPage, setCountOnPage] = useState(1);
 
   const carContext = useContext(CarContext);
-  const paginationContext = useContext(PaginationContext);
 
   const getCarsData = useCallback(async () => {
     const { items, count } = await getCars(paginationContext.page);
@@ -37,6 +38,7 @@ export const Garage = () => {
       <ButtonsOfPagination
         count={countOnPage}
         setIsUpdatePage={setIsCreateNewCar}
+        context={PaginationContext}
       />
       <CarList children={carList} />
     </>

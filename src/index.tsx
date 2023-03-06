@@ -7,6 +7,7 @@ import { PaginationContextProvider } from './context/PaginationContext';
 import { ErrorPage } from './routes/ErrorPage';
 import { Winners } from './routes/Winners';
 import { Garage } from './routes/Garage';
+import { PaginationContextForWinnersPageProvider } from './context/PaginationContextForWinnersPage';
 
 const router = createBrowserRouter([
   {
@@ -37,9 +38,9 @@ const router = createBrowserRouter([
       {
         path: 'winners',
         element: (
-          <PaginationContextProvider>
+          <PaginationContextForWinnersPageProvider>
             <Winners />
-          </PaginationContextProvider>
+          </PaginationContextForWinnersPageProvider>
         ),
       },
     ],
