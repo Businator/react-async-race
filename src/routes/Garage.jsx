@@ -36,7 +36,7 @@ export const Garage = () => {
       <h3>Page#{paginationContext.page}</h3>
       <ButtonsOfPagination
         count={countOnPage}
-        setIsCreateNewCar={setIsCreateNewCar}
+        setIsUpdatePage={setIsCreateNewCar}
       />
       <CarList children={carList} />
     </>

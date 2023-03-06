@@ -36,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'winners',
-        element: <Winners />,
+        element: (
+          <PaginationContextProvider>
+            <Winners />
+          </PaginationContextProvider>
+        ),
       },
     ],
   },

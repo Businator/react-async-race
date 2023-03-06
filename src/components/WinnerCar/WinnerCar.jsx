@@ -4,7 +4,7 @@ import { CarImg } from '../CarImg';
 
 import styles from './WinnersCar.module.css';
 
-export const WinnerCar = ({ id, wins, time }) => {
+export const WinnerCar = ({ id, wins, time, index }) => {
   const [name, setName] = useState('');
   const [color, setColor] = useState('');
 
@@ -25,7 +25,7 @@ export const WinnerCar = ({ id, wins, time }) => {
 
   return (
     <li className={styles.li}>
-      <span>№1</span>
+      <span>№{index + 1}</span>
       <CarImg color={color} id={id} />
       <span>{name}</span>
       <span>Wins: {wins}</span>
