@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { CarContextProvider } from './context/CarContext';
-import { PageContextProvider } from './context/PageContext';
+import { PaginationContextProvider } from './context/PaginationContext';
 import { ErrorPage } from './routes/ErrorPage';
 import { Winners } from './routes/Winners';
 import { Garage } from './routes/Garage';
@@ -17,21 +17,21 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PageContextProvider>
+          <PaginationContextProvider>
             <CarContextProvider>
               <Garage />
             </CarContextProvider>
-          </PageContextProvider>
+          </PaginationContextProvider>
         ),
       },
       {
         path: 'garage',
         element: (
-          <PageContextProvider>
+          <PaginationContextProvider>
             <CarContextProvider>
               <Garage />
             </CarContextProvider>
-          </PageContextProvider>
+          </PaginationContextProvider>
         ),
       },
       {

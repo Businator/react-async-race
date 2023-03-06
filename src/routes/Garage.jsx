@@ -1,6 +1,6 @@
 import { useState, useContext, useCallback, useEffect } from 'react';
 import { CarContext } from '../context/CarContext';
-import { PageContext } from '../context/PageContext';
+import { PaginationContext } from '../context/PaginationContext';
 import { getCars } from '../api';
 import { Car } from '../components/Car';
 import { CarCreationMenu } from '../components/CarCreationMenu';
@@ -12,13 +12,13 @@ export const Garage = () => {
   const [countOnPage, setCountOnPage] = useState(1);
 
   const carContext = useContext(CarContext);
-  const pageContext = useContext(PageContext);
+  const paginationContext = useContext(PaginationContext);
 
   const getCarsData = useCallback(async () => {
-    const { items, count } = await getCars(pageContext.page);
+    const { items, count } = await getCars(paginationContext.page);
     carContext.addCars(items);
     setCountOnPage(count);
-  }, [carContext, pageContext]);
+  }, [carContext, paginationContext]);
 
   useEffect(() => {
     getCarsData();
@@ -33,7 +33,7 @@ export const Garage = () => {
     <>
       <CarCreationMenu setIsCreateNewCar={setIsCreateNewCar} />
       <h2>Garage({countOnPage})</h2>
-      <h3>Page#{pageContext.page}</h3>
+      <h3>Page#{paginationContext.page}</h3>
       <ButtonsOfPagination
         count={countOnPage}
         setIsCreateNewCar={setIsCreateNewCar}

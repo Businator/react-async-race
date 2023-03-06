@@ -1,6 +1,6 @@
 import { useReducer, createContext } from 'react';
 
-export const PageContext = createContext({
+export const PaginationContext = createContext({
   page: 1,
   count: 0,
   nextPage: () => {},
@@ -40,7 +40,7 @@ const pageReducer = (state, action) => {
   }
 };
 
-export const PageContextProvider = ({ children }) => {
+export const PaginationContextProvider = ({ children }) => {
   const [pageState, dispatchCarAction] = useReducer(
     pageReducer,
     defaultPageState
@@ -65,7 +65,7 @@ export const PageContextProvider = ({ children }) => {
     });
   };
 
-  const pageContext = {
+  const paginationContext = {
     page: pageState.page,
     nextPage: nextPageHandler,
     prevPage: prevPageHandler,
@@ -73,6 +73,8 @@ export const PageContextProvider = ({ children }) => {
   };
 
   return (
-    <PageContext.Provider value={pageContext}>{children}</PageContext.Provider>
+    <PaginationContext.Provider value={paginationContext}>
+      {children}
+    </PaginationContext.Provider>
   );
 };

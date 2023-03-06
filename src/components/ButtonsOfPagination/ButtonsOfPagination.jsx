@@ -1,25 +1,25 @@
 import { useContext } from 'react';
-import { PageContext } from '../../context/PageContext';
+import { PaginationContext } from '../../context/PaginationContext';
 
 export const ButtonsOfPagination = ({ count, setIsCreateNewCar }) => {
-  const pageContext = useContext(PageContext);
+  const paginationContext = useContext(PaginationContext);
   return (
     <div>
       <button
-        disabled={pageContext.page === 1}
+        disabled={paginationContext.page === 1}
         onClick={() => {
-          console.log(pageContext.count);
-          pageContext.prevPage();
+          console.log(paginationContext.count);
+          paginationContext.prevPage();
           setIsCreateNewCar(true);
         }}
       >
         Prev
       </button>
       <button
-        disabled={pageContext.page * 7 >= count}
+        disabled={paginationContext.page * 7 >= count}
         onClick={() => {
-          console.log(pageContext.count);
-          pageContext.nextPage();
+          console.log(paginationContext.count);
+          paginationContext.nextPage();
           setIsCreateNewCar(true);
         }}
       >
