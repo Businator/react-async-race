@@ -1,5 +1,5 @@
 import { useReducer, createContext } from 'react';
-import { createCar, deleteCar, updateCar } from '../api';
+import { createCar, deleteCar, deleteWinner, updateCar } from '../api';
 
 export const CarContext = createContext({
   cars: [],
@@ -41,6 +41,7 @@ const carReducer = (state, action) => {
 
     const updatedCarList = state.cars.filter((car) => car !== existingCar);
     deleteCar(action.id);
+    deleteWinner(action.id);
 
     return {
       cars: updatedCarList,
