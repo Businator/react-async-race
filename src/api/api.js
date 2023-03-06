@@ -20,7 +20,7 @@ export const getCars = async (page, limit = 7) => {
 
 export const getCar = async (id) => {
   try {
-    const response = await fetch(`${garage}/${id}}`);
+    const response = await fetch(`${garage}/${id}`);
     return { status: response.status, result: await response.json() };
   } catch (error) {
     throw new Error(error);

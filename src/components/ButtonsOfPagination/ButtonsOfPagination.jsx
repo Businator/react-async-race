@@ -8,7 +8,6 @@ export const ButtonsOfPagination = ({ count, setIsCreateNewCar }) => {
       <button
         disabled={paginationContext.page === 1}
         onClick={() => {
-          console.log(paginationContext.count);
           paginationContext.prevPage();
           setIsCreateNewCar(true);
         }}
@@ -18,7 +17,6 @@ export const ButtonsOfPagination = ({ count, setIsCreateNewCar }) => {
       <button
         disabled={paginationContext.page * 7 >= count}
         onClick={() => {
-          console.log(paginationContext.count);
           paginationContext.nextPage();
           setIsCreateNewCar(true);
         }}
