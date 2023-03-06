@@ -1,10 +1,29 @@
-import { drive, startEngine, stopEngine } from '../api';
+import {
+  createWinner,
+  drive,
+  getWinner,
+  startEngine,
+  stopEngine,
+  updateWinner,
+} from '../api';
+import { roundNumber } from './roundNumber';
+
+const raceParticipants = [];
+
+const createOrUpdateWinner = async ({ id, time }) => {
+  const { result, status } = await getWinner(id);
+  if (status === 404) {
+    createWinner({ id, wins: 1, time: roundNumber(time) });
+  } else if (status === 200 && result.time > roundNumber(time)) {
+    updateWinner({ id, wins: result.wins++, time: roundNumber(time) });
+  }
+};
 
 const getCar = (id) => {
   return document.querySelector(`[datatype = 'car${id}']`);
 };
 
-const animationCar = (car, time) => {
+const animationCar = (id, car, time) => {
   const carWidth = car.getBoundingClientRect().width;
   const animation = car.animate(
     [{ left: '0%' }, { left: `calc(100% - ${carWidth}px)` }],
@@ -13,9 +32,12 @@ const animationCar = (car, time) => {
       easing: 'ease-out',
     }
   );
+  raceParticipants.length = 0;
   animation.play();
-  animation.onfinish = () => {
+  animation.onfinish = async () => {
     car.style.left = `calc(100% - ${carWidth}px)`;
+    raceParticipants.push({ id, time });
+    await createOrUpdateWinner(raceParticipants[0]);
   };
 };
 
@@ -33,7 +55,7 @@ export const startDriving = async (id) => {
   if (status === 200) {
     const time = result.distance / result.velocity;
     switchToDriveMode(id);
-    animationCar(getCar(id), time);
+    animationCar(id, getCar(id), time);
   }
 };
 
