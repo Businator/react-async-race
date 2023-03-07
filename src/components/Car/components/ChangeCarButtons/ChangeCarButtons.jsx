@@ -12,6 +12,7 @@ export const ChangeCarButtons = ({ setIsCreateNewCar, name, id }) => {
   return (
     <div className={styles.container}>
       <button
+        disabled={carContext.isDisabledButtons}
         onClick={async () => {
           deleteCarHandler(id);
           setIsCreateNewCar(true);
@@ -20,6 +21,7 @@ export const ChangeCarButtons = ({ setIsCreateNewCar, name, id }) => {
         Delete
       </button>
       <button
+        disabled={carContext.isDisabledButtons}
         onClick={() => {
           carContext.selectCar(id);
         }}

@@ -18,7 +18,6 @@ export const Winners = () => {
     setWinners(result);
     setCountOnPage(totalCount);
     setIsUpdatePage(false);
-    console.log(winners);
   }, [paginationContext, winners]);
 
   useEffect(() => {
@@ -30,6 +29,7 @@ export const Winners = () => {
       <h1>Winners({countOnPage})</h1>
       <h2>Page #{paginationContext.page}</h2>
       <ButtonsOfPagination
+        carOnPage={10}
         count={countOnPage}
         setIsUpdatePage={setIsUpdatePage}
         context={PaginationContextForWinnersPage}

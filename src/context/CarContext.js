@@ -4,17 +4,20 @@ import { createCar, deleteCar, deleteWinner, updateCar } from '../api';
 export const CarContext = createContext({
   cars: [],
   selectedCar: 0,
+  isDisabledButtons: false,
   addCars: () => {},
   createCar: () => {},
   removeCar: () => {},
   selectCar: () => {},
   updateCar: () => {},
   generateCars: () => {},
+  disabledButtons: () => {},
 });
 
 const defaultCarState = {
   cars: [],
   selectedCar: 0,
+  isDisabledButtons: false,
 };
 
 const carReducer = (state, action) => {
@@ -87,6 +90,13 @@ const carReducer = (state, action) => {
       cars: state.cars,
     };
   }
+
+  if (action.type === 'DISABLED_BUTTONS') {
+    return {
+      ...state,
+      isDisabledButtons: action.isDisabledButtons,
+    };
+  }
 };
 
 export const CarContextProvider = ({ children }) => {
@@ -135,15 +145,24 @@ export const CarContextProvider = ({ children }) => {
     });
   };
 
+  const disabledButtonsHandler = (isDisabledButtons) => {
+    dispatchCarAction({
+      type: 'DISABLED_BUTTONS',
+      isDisabledButtons: isDisabledButtons,
+    });
+  };
+
   const carContext = {
     cars: carState.cars,
     selectedCar: carState.selectedCar,
+    isDisabledButtons: carState.isDisabledButtons,
     addCars: addCarsHandler,
     createCar: createCarHandler,
     selectCar: selectCarHandler,
     removeCar: removeCarHandler,
     updateCar: updateCarHandler,
     generateCars: generateCarsHandler,
+    disabledButtons: disabledButtonsHandler,
   };
 
   return (

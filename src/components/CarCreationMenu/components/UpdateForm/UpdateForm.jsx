@@ -29,7 +29,9 @@ export const UpdateForm = () => {
         value={carColor}
         onChange={(event) => setCarColor(event.target.value)}
       />
-      <button type="submit">Update</button>
+      <button disabled={!carContext.selectedCar} type="submit">
+        Update
+      </button>
     </form>
   );
 };

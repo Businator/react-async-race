@@ -29,8 +29,22 @@ export const ActionButtons = ({ setIsCreateNewCar }) => {
 
   return (
     <div>
-      <button onClick={async () => await raceAllCars()}>Race</button>
-      <button onClick={async () => await resetAllCars()}>Reset</button>
+      <button
+        onClick={async () => {
+          await raceAllCars();
+          carContext.disabledButtons(true);
+        }}
+      >
+        Race
+      </button>
+      <button
+        onClick={async () => {
+          await resetAllCars();
+          carContext.disabledButtons(false);
+        }}
+      >
+        Reset
+      </button>
       <button onClick={generateCars}>Generate Cars</button>
     </div>
   );
