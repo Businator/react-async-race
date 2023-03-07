@@ -50,7 +50,7 @@ export const startDriving = async (id) => {
   if (status === 200) {
     const time = result.distance / result.velocity;
     switchToDriveMode(id);
-    animationCar(id, getCar(id), time);
+    animationCar(getCar(id), time);
   }
 };
 
