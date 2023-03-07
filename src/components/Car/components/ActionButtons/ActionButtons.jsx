@@ -19,7 +19,7 @@ export const ActionButtons = ({ id }) => {
         Start
       </button>
       <button
-        disabled={isDisabledButton && !carContext.isDisabledButtons}
+        disabled={isDisabledButton && carContext.isDisabledButtons}
         onClick={async () => {
           await stopDriving(id);
           setIsDisabledButton(true);

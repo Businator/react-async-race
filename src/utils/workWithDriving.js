@@ -8,9 +8,7 @@ import {
 } from '../api';
 import { roundNumber } from './roundNumber';
 
-const raceParticipants = [];
-
-const createOrUpdateWinner = async ({ id, time }) => {
+export const createOrUpdateWinner = async (id, time) => {
   const { result, status } = await getWinner(id);
   if (status === 404) {
     createWinner({ id, wins: 1, time: roundNumber(time) });
@@ -19,11 +17,11 @@ const createOrUpdateWinner = async ({ id, time }) => {
   }
 };
 
-const getCar = (id) => {
+export const getCar = (id) => {
   return document.querySelector(`[datatype = 'car${id}']`);
 };
 
-const animationCar = (id, car, time) => {
+export const animationCar = (car, time) => {
   const carWidth = car.getBoundingClientRect().width;
   const animation = car.animate(
     [{ left: '0%' }, { left: `calc(100% - ${carWidth}px)` }],
@@ -32,12 +30,9 @@ const animationCar = (id, car, time) => {
       easing: 'ease-out',
     }
   );
-  raceParticipants.length = 0;
   animation.play();
   animation.onfinish = async () => {
     car.style.left = `calc(100% - ${carWidth}px)`;
-    raceParticipants.push({ id, time });
-    await createOrUpdateWinner(raceParticipants[0]);
   };
 };
 

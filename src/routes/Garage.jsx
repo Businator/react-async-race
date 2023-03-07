@@ -6,12 +6,15 @@ import { Car } from '../components/Car';
 import { CarCreationMenu } from '../components/CarCreationMenu';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
 import { CarList } from '../components/CarList';
+import { ModalWindow } from '../components/ModalWindow';
 
 export const Garage = () => {
-  const paginationContext = useContext(PaginationContext);
-
+  const [winner, setWinner] = useState([]);
+  const [modalIsClose, setModalIsClose] = useState(true);
   const [isCreateNewCar, setIsCreateNewCar] = useState(false);
   const [countOnPage, setCountOnPage] = useState(1);
+
+  const paginationContext = useContext(PaginationContext);
 
   const carContext = useContext(CarContext);
 
@@ -27,12 +30,35 @@ export const Garage = () => {
   }, [isCreateNewCar]);
 
   const carList = carContext.cars.map((car) => {
-    return <Car key={car.id} car={car} setIsCreateNewCar={setIsCreateNewCar} />;
+    return (
+      <Car
+        key={car.id}
+        car={car}
+        setIsCreateNewCar={setIsCreateNewCar}
+        setModalIsClose={setModalIsClose}
+      />
+    );
   });
+
+  const showModal = () => {
+    setTimeout(() => {
+      setModalIsClose(false);
+      setWinner([]);
+    }, 3000);
+    if (modalIsClose) {
+      return <ModalWindow winner={winner[0]} />;
+    }
+  };
 
   return (
     <>
-      <CarCreationMenu setIsCreateNewCar={setIsCreateNewCar} />
+      {winner.length >= 1 && showModal()}
+
+      <CarCreationMenu
+        setWinner={setWinner}
+        setIsCreateNewCar={setIsCreateNewCar}
+        setModalIsClose={setModalIsClose}
+      />
       <h1>Garage({countOnPage})</h1>
       <h2>Page#{paginationContext.page}</h2>
       <ButtonsOfPagination
