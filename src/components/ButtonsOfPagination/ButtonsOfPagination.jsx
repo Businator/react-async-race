@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 
+import styles from './ButtonsOfPagination.module.css';
+
 export const ButtonsOfPagination = ({
   count,
   setIsUpdatePage,
@@ -8,7 +10,7 @@ export const ButtonsOfPagination = ({
 }) => {
   const paginationContext = useContext(context);
   return (
-    <div>
+    <div className={styles.container}>
       <button
         disabled={paginationContext.page === 1}
         onClick={() => {

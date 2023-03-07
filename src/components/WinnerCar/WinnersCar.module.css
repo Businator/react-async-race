@@ -1,5 +1,27 @@
-.li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.positionInTable {
+  width: 10%;
+  min-height: 100%;
+}
+
+.car {
+  width: 20%;
+}
+
+.name {
+  width: 30%;
+}
+
+.wins {
+  width: 20%;
+}
+
+.time {
+  width: 20%;
+}
+
+.positionInTable,
+.car,
+.name,
+.wins {
+  border-right: 1px solid blue;
 }

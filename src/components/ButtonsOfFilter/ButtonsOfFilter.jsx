@@ -25,12 +25,12 @@ export const ButtonsOfFilter = ({ winners, setWinners }) => {
 
   return (
     <div className={styles.container}>
-      <span>
+      <span className={styles.buttonsContainer}>
         Sort by: TIME
         <button onClick={() => sortTime('ASC')}>ASC</button>
         <button onClick={() => sortTime('DESC')}>DESC</button>
       </span>
-      <span>
+      <span className={styles.buttonsContainer}>
         Sort by: WINS
         <button onClick={() => sortWins('ASC')}>ASC</button>
         <button onClick={() => sortWins('DESC')}>DESC</button>

@@ -28,7 +28,7 @@ export const ChangeCarButtons = ({ setIsCreateNewCar, name, id }) => {
       >
         Select
       </button>
-      <p>{name}</p>
+      <p className={styles.name}>{name}</p>
     </div>
   );
 };

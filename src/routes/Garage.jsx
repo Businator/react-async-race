@@ -33,8 +33,8 @@ export const Garage = () => {
   return (
     <>
       <CarCreationMenu setIsCreateNewCar={setIsCreateNewCar} />
-      <h2>Garage({countOnPage})</h2>
-      <h3>Page#{paginationContext.page}</h3>
+      <h1>Garage({countOnPage})</h1>
+      <h2>Page#{paginationContext.page}</h2>
       <ButtonsOfPagination
         carOnPage={7}
         count={countOnPage}

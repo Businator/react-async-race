@@ -24,12 +24,14 @@ export const WinnerCar = ({ id, wins, time, index }) => {
   }, [getCarData]);
 
   return (
-    <li className={styles.li}>
-      <span>№{index + 1}</span>
-      <CarImg color={color} id={id} />
-      <span>{name}</span>
-      <span>Wins: {wins}</span>
-      <span>Time: {time}</span>
+    <li>
+      <span className={styles.positionInTable}>№{index + 1}</span>
+      <span className={styles.car}>
+        <CarImg color={color} id={id} />
+      </span>
+      <span className={styles.name}>{name}</span>
+      <span className={styles.wins}>Wins: {wins}</span>
+      <span className={styles.time}>Time: {time}</span>
     </li>
   );
 };

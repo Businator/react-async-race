@@ -1,13 +1,93 @@
+html {
+  height: 100%;
+}
+
 body {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0 auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  background-color: lightslategray;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  height: 100vh;
+}
+
+header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 1rem;
+  background-color: lightsteelblue;
+}
+
+main {
+  height: 100%;
+}
+
+footer {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-shrink: 0;
+  padding: 1rem;
+  background-color: lightsteelblue;
+}
+
+a {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: blue;
+}
+
+button {
+  border: 0;
+  border-radius: 5px;
+  background-color: blue;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+button:disabled {
+  opacity: 0.3;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: darkblue;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px #cbd6ee;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+ul {
+  padding: 0;
+  border: 1px solid blue;
+}
+
+li {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid blue;
 }

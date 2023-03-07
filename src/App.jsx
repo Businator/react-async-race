@@ -23,6 +23,13 @@ function App() {
         <a href="https://github.com/Businator" target="_blank" rel="noreferrer">
           Businator
         </a>
+        <a
+          href="https://github.com/rolling-scopes-school/tasks/blob/master/tasks/async-race.md"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Task
+        </a>
       </footer>
     </div>
   );
