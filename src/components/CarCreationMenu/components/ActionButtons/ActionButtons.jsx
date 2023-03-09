@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { CarContext } from '../../../../context/CarContext';
 import { generateRandomCars } from '../../../../utils/generateRandomCars';
 import { drive, getCars, startEngine } from '../../../../api';
 import {
@@ -8,6 +7,7 @@ import {
   stopDriving,
 } from '../../../../utils/workWithDriving';
 import { PaginationContext } from '../../../../context/PaginationContext';
+import { CarContext } from '../../../../context/CarContext';
 
 export const ActionButtons = ({
   setModalIsClose,

@@ -1,3 +1,5 @@
+import { Car, CarEngine, Winner } from '../types';
+
 const base = 'http://127.0.0.1:3000';
 const garage = `${base}/garage`;
 const engine = `${base}/engine`;
@@ -5,29 +7,32 @@ const winners = `${base}/winners`;
 
 ///////////////Work With Cars///////////////
 
-export const getCars = async (page, limit = 7) => {
+export const getCars = async (page: number, limit = 7) => {
   try {
     const response = await fetch(`${garage}?_page=${page}&_limit=${limit}`);
 
     return {
-      items: await response.json(),
+      items: (await response.json()) as [Car],
       count: response.headers.get('X-Total-Count'),
     };
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
-export const getCar = async (id) => {
+export const getCar = async (id: number) => {
   try {
     const response = await fetch(`${garage}/${id}`);
-    return { status: response.status, result: await response.json() };
-  } catch (error) {
-    throw new Error(error);
+    return {
+      status: response.status,
+      result: (await response.json()) as [Car],
+    };
+  } catch {
+    throw new Error();
   }
 };
 
-export const createCar = async (car) => {
+export const createCar = async (car: Car) => {
   try {
     await fetch(`${garage}`, {
       method: 'POST',
@@ -36,22 +41,22 @@ export const createCar = async (car) => {
         'Content-Type': 'application/json',
       },
     });
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
-export const deleteCar = async (id) => {
+export const deleteCar = async (id: number) => {
   try {
     await fetch(`${garage}/${id}`, {
       method: 'DELETE',
     });
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
-export const updateCar = async (id, car) => {
+export const updateCar = async (id: number, car: Car) => {
   try {
     await fetch(`${garage}/${id}`, {
       method: 'PUT',
@@ -67,49 +72,49 @@ export const updateCar = async (id, car) => {
 
 ///////////////Work With Engine///////////////
 
-export const startEngine = async (id) => {
+export const startEngine = async (id: number) => {
   try {
     const response = await fetch(`${engine}?id=${id}&status=started`, {
       method: 'PATCH',
     });
     return {
       status: response.status,
-      result: await response.json(),
+      result: (await response.json()) as CarEngine,
     };
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
-export const stopEngine = async (id) => {
+export const stopEngine = async (id: number) => {
   try {
     const response = await fetch(`${engine}?id=${id}&status=stopped`, {
       method: 'PATCH',
     });
     return {
       status: response.status,
-      result: await response.json(),
+      result: (await response.json()) as CarEngine,
     };
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
-export const drive = async (id) => {
+export const drive = async (id: number) => {
   try {
     const response = await fetch(`${engine}?id=${id}&status=drive`, {
       method: 'PATCH',
     });
     return response.status;
-  } catch (error) {
-    throw new Error(error);
+  } catch {
+    throw new Error();
   }
 };
 
 ///////////////Work With Winners///////////////
 
 export const getWinners = async (
-  page,
+  page: number,
   limit = 10,
   sort = 'time',
   order = 'ASC'
@@ -119,7 +124,7 @@ export const getWinners = async (
       `${winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`
     );
     return {
-      result: await response.json(),
+      result: (await response.json()) as Winner[],
       totalCount: response.headers.get('X-Total-Count') || '0',
     };
   } catch {
@@ -127,19 +132,19 @@ export const getWinners = async (
   }
 };
 
-export const getWinner = async (id) => {
+export const getWinner = async (id: number) => {
   try {
     const response = await fetch(`${winners}/${id}`);
     return {
       status: response.status,
-      result: await response.json(),
+      result: (await response.json()) as Winner,
     };
   } catch {
     throw new Error();
   }
 };
 
-export const createWinner = async (car) => {
+export const createWinner = async (car: Winner) => {
   try {
     const response = await fetch(`${winners}`, {
       method: 'POST',
@@ -153,7 +158,7 @@ export const createWinner = async (car) => {
   }
 };
 
-export const deleteWinner = async (id) => {
+export const deleteWinner = async (id: number) => {
   try {
     await fetch(`${winners}/${id}`, {
       method: 'DELETE',
@@ -163,7 +168,7 @@ export const deleteWinner = async (id) => {
   }
 };
 
-export const updateWinner = async (car) => {
+export const updateWinner = async (car: Winner) => {
   try {
     await fetch(`${winners}/${car.id}`, {
       method: 'PUT',

@@ -2,12 +2,12 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { CarContextProvider } from './context/CarContext';
 import { PaginationContextProvider } from './context/PaginationContext';
 import { ErrorPage } from './routes/ErrorPage';
 import { Winners } from './routes/Winners';
 import { Garage } from './routes/Garage';
 import { PaginationContextForWinnersPageProvider } from './context/PaginationContextForWinnersPage';
+import { CarContextProvider } from './context/CarContext';
 
 const router = createBrowserRouter([
   {

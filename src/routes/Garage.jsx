@@ -21,7 +21,7 @@ export const Garage = () => {
   const getCarsData = useCallback(async () => {
     const { items, count } = await getCars(paginationContext.page);
     carContext.addCars(items);
-    setCountOnPage(count);
+    setCountOnPage(Number(count));
   }, [carContext, paginationContext]);
 
   useEffect(() => {
@@ -30,14 +30,7 @@ export const Garage = () => {
   }, [isCreateNewCar]);
 
   const carList = carContext.cars.map((car) => {
-    return (
-      <Car
-        key={car.id}
-        car={car}
-        setIsCreateNewCar={setIsCreateNewCar}
-        setModalIsClose={setModalIsClose}
-      />
-    );
+    return <Car key={car.id} car={car} setIsCreateNewCar={setIsCreateNewCar} />;
   });
 
   const showModal = () => {

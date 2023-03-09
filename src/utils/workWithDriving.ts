@@ -8,8 +8,8 @@ import {
 } from '../api';
 import { roundNumber } from './roundNumber';
 
-export const createOrUpdateWinner = async (id, time) => {
-  const { result, status } = await getWinner(id);
+export const createOrUpdateWinner = async (id: number, time: number) => {
+  const { status, result } = await getWinner(id);
   if (status === 404) {
     createWinner({ id, wins: 1, time: roundNumber(time) });
   } else if (status === 200 && result.time > roundNumber(time)) {
@@ -17,11 +17,11 @@ export const createOrUpdateWinner = async (id, time) => {
   }
 };
 
-export const getCar = (id) => {
-  return document.querySelector(`[datatype = 'car${id}']`);
+export const getCar = (id: number): HTMLElement => {
+  return document.querySelector(`[datatype = 'car${id}']`) as HTMLElement;
 };
 
-export const animationCar = (car, time) => {
+export const animationCar = (car: HTMLElement, time: number) => {
   const carWidth = car.getBoundingClientRect().width;
   const animation = car.animate(
     [{ left: '0%' }, { left: `calc(100% - ${carWidth}px)` }],
@@ -36,16 +36,16 @@ export const animationCar = (car, time) => {
   };
 };
 
-const switchToDriveMode = async (id) => {
+const switchToDriveMode = async (id: number) => {
   const status = await drive(id);
   if (status === 500) {
-    getCar(id)
+    getCar(id)!
       .getAnimations({ subtree: false })
       .map((anim) => anim.pause());
   }
 };
 
-export const startDriving = async (id) => {
+export const startDriving = async (id: number) => {
   const { status, result } = await startEngine(id);
   if (status === 200) {
     const time = result.distance / result.velocity;
@@ -54,10 +54,10 @@ export const startDriving = async (id) => {
   }
 };
 
-export const stopDriving = async (id) => {
+export const stopDriving = async (id: number) => {
   const { status } = await stopEngine(id);
   if (status === 200) {
-    getCar(id)
+    getCar(id)!
       .getAnimations()
       .map((anim) => anim.cancel());
     getCar(id).style.left = '0%';
