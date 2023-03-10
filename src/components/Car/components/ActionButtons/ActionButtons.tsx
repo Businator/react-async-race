@@ -3,7 +3,7 @@ import { startDriving, stopDriving } from '../../../../utils/workWithDriving';
 import styles from './ActionButtons.module.css';
 import { CarContext } from '../../../../context/CarContext';
 
-export const ActionButtons = ({ id }) => {
+export const ActionButtons = ({ id }: { id: number }) => {
   const carContext = useContext(CarContext);
   const [isDisabledButton, setIsDisabledButton] = useState(true);
 

@@ -1,13 +1,17 @@
 import { useState, useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
 
-export const CreationForm = ({ setIsCreateNewCar }) => {
+export const CreationForm = ({
+  setIsCreateNewCar,
+}: {
+  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [carName, setCarName] = useState('');
   const [carColor, setCarColor] = useState('#000000');
 
   const carContext = useContext(CarContext);
 
-  const submit = (event) => {
+  const submit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     carContext.createCar({
       name: carName,

@@ -13,7 +13,11 @@ export const createOrUpdateWinner = async (id: number, time: number) => {
   if (status === 404) {
     createWinner({ id, wins: 1, time: roundNumber(time) });
   } else if (status === 200 && result.time > roundNumber(time)) {
-    updateWinner({ id, wins: result.wins + 1, time: roundNumber(time) });
+    updateWinner({
+      id,
+      wins: (result.wins as number) + 1,
+      time: roundNumber(time),
+    });
   }
 };
 

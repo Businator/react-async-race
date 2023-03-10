@@ -6,8 +6,9 @@ import { PaginationContextProvider } from './context/PaginationContext';
 import { ErrorPage } from './routes/ErrorPage';
 import { Winners } from './routes/Winners';
 import { Garage } from './routes/Garage';
-import { PaginationContextForWinnersPageProvider } from './context/PaginationContextForWinnersPage';
+
 import { CarContextProvider } from './context/CarContext';
+import { PaginationContextForWinnersPageProvider } from './context/PaginationContextForWinnersPage';
 
 const router = createBrowserRouter([
   {

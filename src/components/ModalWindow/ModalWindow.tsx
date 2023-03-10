@@ -2,8 +2,9 @@ import { roundNumber } from '../../utils/roundNumber';
 
 import styles from './ModalWindow.module.css';
 import { createOrUpdateWinner } from '../../utils/workWithDriving';
+import { Winner } from '../../types';
 
-export const ModalWindow = ({ winner }) => {
+export const ModalWindow = ({ winner }: { winner: Winner }) => {
   const { id, name, time } = winner;
 
   createOrUpdateWinner(id, time);

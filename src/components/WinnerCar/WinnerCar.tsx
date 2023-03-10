@@ -4,7 +4,14 @@ import { CarImg } from '../CarImg';
 
 import styles from './WinnersCar.module.css';
 
-export const WinnerCar = ({ id, wins, time, index }) => {
+type WinnerCarType = {
+  id: number;
+  wins: number;
+  time: number;
+  index: number;
+};
+
+export const WinnerCar = ({ id, wins, time, index }: WinnerCarType) => {
   const [name, setName] = useState('');
   const [color, setColor] = useState('');
 

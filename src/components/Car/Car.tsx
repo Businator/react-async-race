@@ -4,21 +4,27 @@ import { Flag } from './components/Flag';
 
 import styles from './Car.module.css';
 import { CarImg } from '../CarImg';
+import { Car as CarType } from '../../types';
 
-export const Car = ({ car, setIsCreateNewCar }) => {
+type CarTypes = {
+  car: CarType;
+  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const Car = ({ car, setIsCreateNewCar }: CarTypes) => {
   const { color, name, id } = car;
   return (
     <div>
       <ChangeCarButtons
         setIsCreateNewCar={setIsCreateNewCar}
         name={name}
-        id={id}
+        id={id as number}
       />
       <div className={styles.road}>
-        <CarImg color={color} id={id} />
+        <CarImg color={color} id={id as number} />
         <Flag />
       </div>
-      <ActionButtons id={id} />
+      <ActionButtons id={id as number} />
     </div>
   );
 };

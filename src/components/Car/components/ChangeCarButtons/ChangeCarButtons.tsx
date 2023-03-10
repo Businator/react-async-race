@@ -2,10 +2,20 @@ import { useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
 import styles from './ChangeCarButtons.module.css';
 
-export const ChangeCarButtons = ({ setIsCreateNewCar, name, id }) => {
+type ChangeCarButtonsType = {
+  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
+  name: string;
+  id: number;
+};
+
+export const ChangeCarButtons = ({
+  setIsCreateNewCar,
+  name,
+  id,
+}: ChangeCarButtonsType) => {
   const carContext = useContext(CarContext);
 
-  const deleteCarHandler = (id) => {
+  const deleteCarHandler = (id: number) => {
     carContext.removeCar(id);
   };
 

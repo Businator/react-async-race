@@ -25,7 +25,7 @@ export const getCar = async (id: number) => {
     const response = await fetch(`${garage}/${id}`);
     return {
       status: response.status,
-      result: (await response.json()) as [Car],
+      result: (await response.json()) as Car,
     };
   } catch {
     throw new Error();

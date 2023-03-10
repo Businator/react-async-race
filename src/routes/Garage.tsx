@@ -5,11 +5,11 @@ import { getCars } from '../api';
 import { Car } from '../components/Car';
 import { CarCreationMenu } from '../components/CarCreationMenu';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
-import { CarList } from '../components/CarList';
 import { ModalWindow } from '../components/ModalWindow';
+import { Winner } from '../types';
 
 export const Garage = () => {
-  const [winner, setWinner] = useState([]);
+  const [winner, setWinner] = useState([] as Winner[]);
   const [modalIsClose, setModalIsClose] = useState(true);
   const [isCreateNewCar, setIsCreateNewCar] = useState(false);
   const [countOnPage, setCountOnPage] = useState(1);
@@ -60,7 +60,7 @@ export const Garage = () => {
         setIsUpdatePage={setIsCreateNewCar}
         context={PaginationContext}
       />
-      <CarList children={carList} />
+      {carList}
     </>
   );
 };

@@ -8,12 +8,19 @@ import {
 } from '../../../../utils/workWithDriving';
 import { PaginationContext } from '../../../../context/PaginationContext';
 import { CarContext } from '../../../../context/CarContext';
+import { Winner } from '../../../../types';
+
+type ActionButtonsType = {
+  setModalIsClose: React.Dispatch<React.SetStateAction<boolean>>;
+  setWinner: React.Dispatch<React.SetStateAction<Winner[]>>;
+  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 export const ActionButtons = ({
   setModalIsClose,
   setWinner,
   setIsCreateNewCar,
-}) => {
+}: ActionButtonsType) => {
   const carContext = useContext(CarContext);
   const paginationContext = useContext(PaginationContext);
 
@@ -27,21 +34,21 @@ export const ActionButtons = ({
     const { items } = await getCars(paginationContext.page);
 
     items.map(async (car) => {
-      const { status, result } = await startEngine(car.id);
+      const { status, result } = await startEngine(car.id as number);
       if (status === 200) {
         const time = result.distance / result.velocity;
-        animationCar(getCar(car.id), time);
+        animationCar(getCar(car.id as number), time);
       }
-      const driveStatus = await drive(car.id);
+      const driveStatus = await drive(car.id as number);
       if (driveStatus === 500) {
-        getCar(car.id)
+        getCar(car.id as number)
           .getAnimations({ subtree: false })
           .map((anim) => anim.pause());
       }
       if (driveStatus === 200) {
         setWinner((prevState) =>
           prevState.concat({
-            id: car.id,
+            id: car.id as number,
             time: result.distance / result.velocity,
             name: car.name,
           })
@@ -52,7 +59,7 @@ export const ActionButtons = ({
 
   const resetAllCars = async () => {
     const { items } = await getCars(paginationContext.page);
-    const cars = items.map(async (car) => stopDriving(car.id));
+    const cars = items.map(async (car) => stopDriving(car.id as number));
     Promise.all(cars);
   };
 

@@ -7,7 +7,7 @@ export const UpdateForm = () => {
 
   const carContext = useContext(CarContext);
 
-  const submit = (event) => {
+  const submit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     carContext.updateCar(carContext.selectedCar, {
       name: carName,

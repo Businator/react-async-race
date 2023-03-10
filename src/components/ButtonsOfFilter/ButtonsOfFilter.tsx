@@ -1,9 +1,19 @@
+import { Winner } from '../../types';
+
 import styles from './ButtonsOfFilter.module.css';
 
-export const ButtonsOfFilter = ({ winners, setWinners }) => {
+type ButtonsOfFilterTypes = {
+  winners: Winner[];
+  setWinners: React.Dispatch<React.SetStateAction<Winner[]>>;
+};
+
+export const ButtonsOfFilter = ({
+  winners,
+  setWinners,
+}: ButtonsOfFilterTypes) => {
   const sortResult = winners.slice();
 
-  const sortTime = (typeSort) => {
+  const sortTime = (typeSort: string) => {
     if (typeSort === 'ASC') {
       sortResult.sort((a, b) => b.time - a.time);
       setWinners(sortResult);
@@ -13,12 +23,12 @@ export const ButtonsOfFilter = ({ winners, setWinners }) => {
     }
   };
 
-  const sortWins = (typeSort) => {
+  const sortWins = (typeSort: string) => {
     if (typeSort === 'ASC') {
-      sortResult.sort((a, b) => b.wins - a.wins);
+      sortResult.sort((a, b) => (b.wins as number) - (a.wins as number));
       setWinners(sortResult);
     } else {
-      sortResult.sort((a, b) => a.wins - b.wins);
+      sortResult.sort((a, b) => (a.wins as number) - (b.wins as number));
       setWinners(sortResult);
     }
   };

@@ -1,4 +1,4 @@
-import { useReducer, createContext, Dispatch } from 'react';
+import { useReducer, createContext } from 'react';
 import { createCar, deleteCar, deleteWinner, updateCar } from '../api';
 import { Car } from '../types';
 
