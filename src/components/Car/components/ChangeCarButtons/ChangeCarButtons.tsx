@@ -1,22 +1,22 @@
 import { useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
 import styles from './ChangeCarButtons.module.css';
+import { deleteWinner, getWinner } from '../../../../api';
 
 type ChangeCarButtonsType = {
-  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
   name: string;
   id: number;
 };
 
-export const ChangeCarButtons = ({
-  setIsCreateNewCar,
-  name,
-  id,
-}: ChangeCarButtonsType) => {
+export const ChangeCarButtons = ({ name, id }: ChangeCarButtonsType) => {
   const carContext = useContext(CarContext);
 
-  const deleteCarHandler = (id: number) => {
+  const deleteCarHandler = async (id: number) => {
     carContext.removeCar(id);
+    const { status } = await getWinner(id);
+    if (status !== 404) {
+      deleteWinner(id);
+    }
   };
 
   return (
@@ -25,7 +25,6 @@ export const ChangeCarButtons = ({
         disabled={carContext.isDisabledButtons}
         onClick={async () => {
           deleteCarHandler(id);
-          setIsCreateNewCar(true);
         }}
       >
         Delete

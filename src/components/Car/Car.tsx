@@ -8,18 +8,13 @@ import { Car as CarType } from '../../types';
 
 type CarTypes = {
   car: CarType;
-  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const Car = ({ car, setIsCreateNewCar }: CarTypes) => {
+export const Car = ({ car }: CarTypes) => {
   const { color, name, id } = car;
   return (
     <div>
-      <ChangeCarButtons
-        setIsCreateNewCar={setIsCreateNewCar}
-        name={name}
-        id={id as number}
-      />
+      <ChangeCarButtons name={name} id={id as number} />
       <div className={styles.road}>
         <CarImg color={color} id={id as number} />
         <Flag />

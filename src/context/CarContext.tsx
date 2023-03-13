@@ -1,9 +1,10 @@
 import { useReducer, createContext } from 'react';
-import { createCar, deleteCar, deleteWinner, updateCar } from '../api';
-import { Car } from '../types';
+import { createCar, deleteCar, updateCar } from '../api';
+import { Car, Winner } from '../types';
 
 type initialStateType = {
   cars: Car[];
+  winners: Winner[];
   selectedCar: number;
   isDisabledButtons: boolean;
 };
@@ -14,23 +15,27 @@ type CarActions = {
   car: Car;
   id: number;
   cars: Car[];
+  winners: Winner[];
 };
 
 export const CarContext = createContext({
   cars: [] as Car[],
+  winners: [] as Winner[],
   selectedCar: 0,
   isDisabledButtons: false,
   addCars: (_cars: Car[]) => {},
-  createCar: (_car: Car) => {},
+  addWinners: (_winners: Winner[]) => {},
+  createCar: async (_car: Car) => {},
   removeCar: (_id: number) => {},
   selectCar: (_id: number) => {},
   updateCar: (_id: number, _car: Car) => {},
-  generateCars: (_cars: Car[]) => {},
+  generateCars: async (_cars: Car[]) => {},
   disabledButtons: (_isDisabledButtons: boolean) => {},
 });
 
 const defaultCarState = {
   cars: [],
+  winners: [],
   selectedCar: 0,
   isDisabledButtons: false,
 };
@@ -43,11 +48,18 @@ const carReducer = (state: initialStateType, action: CarActions) => {
         cars: action.cars,
       };
 
+    case 'ADD_WINNERS':
+      return {
+        ...state,
+        winners: action.winners,
+      };
+
     case 'SELECT_CAR':
       return {
         ...state,
         selectedCar: action.id,
       };
+
     case 'DELETE_CAR':
       const existingCarIndex = state.cars.findIndex(
         (car) => car.id === action.id
@@ -56,7 +68,6 @@ const carReducer = (state: initialStateType, action: CarActions) => {
 
       const updatedCarList = state.cars.filter((car) => car !== existingCar);
       deleteCar(action.id);
-      deleteWinner(action.id);
 
       return {
         ...state,
@@ -124,16 +135,33 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
         id: undefined,
       },
       id: 0,
+      winners: [],
     });
   };
 
-  const createCarHandler = (car: Car) => {
+  const addWinnersHandler = (winners: Winner[]) => {
+    dispatchCarAction({
+      type: 'ADD_WINNERS',
+      winners: winners,
+      isDisabledButtons: false,
+      car: {
+        name: '',
+        color: '',
+        id: undefined,
+      },
+      id: 0,
+      cars: [],
+    });
+  };
+
+  const createCarHandler = async (car: Car) => {
     dispatchCarAction({
       type: 'CREATE_CAR',
       car: car,
       isDisabledButtons: false,
       id: 0,
       cars: [],
+      winners: [],
     });
   };
 
@@ -148,6 +176,7 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
         id: undefined,
       },
       cars: [],
+      winners: [],
     });
   };
 
@@ -162,6 +191,7 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
         id: undefined,
       },
       cars: [],
+      winners: [],
     });
   };
 
@@ -172,10 +202,11 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
       car: car,
       isDisabledButtons: false,
       cars: [],
+      winners: [],
     });
   };
 
-  const generateCarsHandler = (cars: Car[]) => {
+  const generateCarsHandler = async (cars: Car[]) => {
     dispatchCarAction({
       type: 'GENERATE_CARS',
       cars: cars,
@@ -186,6 +217,7 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
         id: undefined,
       },
       id: 0,
+      winners: [],
     });
   };
 
@@ -200,14 +232,17 @@ export const CarContextProvider = ({ children }: { children: JSX.Element }) => {
       },
       id: 0,
       cars: [],
+      winners: [],
     });
   };
 
   const carContext = {
     cars: carState.cars,
+    winners: carState.winners,
     selectedCar: carState.selectedCar,
     isDisabledButtons: carState.isDisabledButtons,
     addCars: addCarsHandler,
+    addWinners: addWinnersHandler,
     createCar: createCarHandler,
     selectCar: selectCarHandler,
     removeCar: removeCarHandler,

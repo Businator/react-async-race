@@ -1,35 +1,30 @@
-import { Winner } from '../../types';
+import { CarContext } from '../../context/CarContext';
 
 import styles from './ButtonsOfFilter.module.css';
+import { useContext } from 'react';
 
-type ButtonsOfFilterTypes = {
-  winners: Winner[];
-  setWinners: React.Dispatch<React.SetStateAction<Winner[]>>;
-};
+export const ButtonsOfFilter = () => {
+  const carContext = useContext(CarContext);
 
-export const ButtonsOfFilter = ({
-  winners,
-  setWinners,
-}: ButtonsOfFilterTypes) => {
-  const sortResult = winners.slice();
+  const sortResult = carContext.winners.slice();
 
   const sortTime = (typeSort: string) => {
     if (typeSort === 'ASC') {
       sortResult.sort((a, b) => b.time - a.time);
-      setWinners(sortResult);
+      carContext.addWinners(sortResult);
     } else {
       sortResult.sort((a, b) => a.time - b.time);
-      setWinners(sortResult);
+      carContext.addWinners(sortResult);
     }
   };
 
   const sortWins = (typeSort: string) => {
     if (typeSort === 'ASC') {
       sortResult.sort((a, b) => (b.wins as number) - (a.wins as number));
-      setWinners(sortResult);
+      carContext.addWinners(sortResult);
     } else {
       sortResult.sort((a, b) => (a.wins as number) - (b.wins as number));
-      setWinners(sortResult);
+      carContext.addWinners(sortResult);
     }
   };
 

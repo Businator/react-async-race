@@ -3,8 +3,6 @@ import { useContext } from 'react';
 import styles from './ButtonsOfPagination.module.css';
 
 type ButtonsOfPaginationType = {
-  count: number;
-  setIsUpdatePage: React.Dispatch<React.SetStateAction<boolean>>;
   context: React.Context<{
     page: number;
     count: number;
@@ -16,8 +14,6 @@ type ButtonsOfPaginationType = {
 };
 
 export const ButtonsOfPagination = ({
-  count,
-  setIsUpdatePage,
   context,
   carOnPage,
 }: ButtonsOfPaginationType) => {
@@ -28,16 +24,14 @@ export const ButtonsOfPagination = ({
         disabled={paginationContext.page === 1}
         onClick={() => {
           paginationContext.prevPage();
-          setIsUpdatePage(true);
         }}
       >
         Prev
       </button>
       <button
-        disabled={paginationContext.page * carOnPage >= count}
+        disabled={paginationContext.page * carOnPage >= paginationContext.count}
         onClick={() => {
           paginationContext.nextPage();
-          setIsUpdatePage(true);
         }}
       >
         Next

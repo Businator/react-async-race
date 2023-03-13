@@ -7,30 +7,33 @@ import { CarCreationMenu } from '../components/CarCreationMenu';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
 import { ModalWindow } from '../components/ModalWindow';
 import { Winner } from '../types';
+import { getWinners } from './../api/api';
 
 export const Garage = () => {
   const [winner, setWinner] = useState([] as Winner[]);
   const [modalIsClose, setModalIsClose] = useState(true);
-  const [isCreateNewCar, setIsCreateNewCar] = useState(false);
-  const [countOnPage, setCountOnPage] = useState(1);
 
   const paginationContext = useContext(PaginationContext);
 
   const carContext = useContext(CarContext);
 
-  const getCarsData = useCallback(async () => {
-    const { items, count } = await getCars(paginationContext.page);
-    carContext.addCars(items);
-    setCountOnPage(Number(count));
-  }, [carContext, paginationContext]);
+  const getCarsData = useCallback(
+    async (page: number) => {
+      const { items, count } = await getCars(page);
+      const { result } = await getWinners(page);
+      carContext.addCars(items);
+      carContext.addWinners(result);
+      paginationContext.setCount(Number(count));
+    },
+    [carContext, paginationContext]
+  );
 
   useEffect(() => {
-    getCarsData();
-    setIsCreateNewCar(false);
-  }, [isCreateNewCar]);
+    getCarsData(paginationContext.page);
+  }, [paginationContext.page]);
 
   const carList = carContext.cars.map((car) => {
-    return <Car key={car.id} car={car} setIsCreateNewCar={setIsCreateNewCar} />;
+    return <Car key={car.id} car={car} />;
   });
 
   const showModal = () => {
@@ -49,17 +52,11 @@ export const Garage = () => {
 
       <CarCreationMenu
         setWinner={setWinner}
-        setIsCreateNewCar={setIsCreateNewCar}
         setModalIsClose={setModalIsClose}
       />
-      <h1>Garage({countOnPage})</h1>
+      <h1>Garage({paginationContext.count})</h1>
       <h2>Page#{paginationContext.page}</h2>
-      <ButtonsOfPagination
-        carOnPage={7}
-        count={countOnPage}
-        setIsUpdatePage={setIsCreateNewCar}
-        context={PaginationContext}
-      />
+      <ButtonsOfPagination carOnPage={7} context={PaginationContext} />
       {carList}
     </>
   );

@@ -1,10 +1,8 @@
-import { Outlet, NavLink, useNavigation } from 'react-router-dom';
+import { Outlet, NavLink } from 'react-router-dom';
 
 import './App.css';
 
 function App() {
-  const navigation = useNavigation();
-
   return (
     <div className="App">
       <header>
@@ -12,12 +10,7 @@ function App() {
         <NavLink to={'winners'}>To Winners</NavLink>
       </header>
       <main>
-        <div
-          id="detail"
-          className={navigation.state === 'loading' ? 'loading' : ''}
-        >
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
       <footer>
         <a href="https://github.com/Businator" target="_blank" rel="noreferrer">

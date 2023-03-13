@@ -1,8 +1,11 @@
-import { Winner } from '../../types';
 import { WinnerCar } from '../WinnerCar';
+import { useContext } from 'react';
+import { CarContext } from './../../context/CarContext';
 
-export const WinnersList = ({ winners }: { winners: Winner[] }) => {
-  const winnersList = winners.map((winner, index) => (
+export const WinnersList = () => {
+  const carContext = useContext(CarContext);
+
+  const winnersList = carContext.winners.map((winner, index) => (
     <WinnerCar
       key={winner.id}
       id={winner.id}

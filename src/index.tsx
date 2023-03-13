@@ -17,7 +17,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        index: true,
         element: (
           <PaginationContextProvider>
             <CarContextProvider>
@@ -40,7 +39,9 @@ const router = createBrowserRouter([
         path: 'winners',
         element: (
           <PaginationContextForWinnersPageProvider>
-            <Winners />
+            <CarContextProvider>
+              <Winners />
+            </CarContextProvider>
           </PaginationContextForWinnersPageProvider>
         ),
       },

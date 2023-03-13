@@ -3,40 +3,36 @@ import { getWinners } from '../api';
 import { WinnersList } from '../components/WinnersList';
 import { ButtonsOfPagination } from '../components/ButtonsOfPagination';
 import { ButtonsOfFilter } from '../components/ButtonsOfFilter';
-import { Winner } from '../types';
 import { PaginationContextForWinnersPage } from '../context/PaginationContextForWinnersPage';
+import { CarContext } from './../context/CarContext';
 
 export const Winners = () => {
   const paginationContext = useContext(PaginationContextForWinnersPage);
+  const carContext = useContext(CarContext);
 
-  const [isUpdatePage, setIsUpdatePage] = useState(false);
-  const [winners, setWinners] = useState([] as Winner[]);
-  const [countOnPage, setCountOnPage] = useState('');
-
-  const getWinnersData = useCallback(async () => {
-    const { result, totalCount } = await getWinners(paginationContext.page);
-    paginationContext.setCount(Number(totalCount));
-    setWinners(result);
-    setCountOnPage(totalCount);
-    setIsUpdatePage(false);
-  }, [paginationContext, winners]);
+  const getWinnersData = useCallback(
+    async (page: number) => {
+      const { result, totalCount } = await getWinners(page);
+      paginationContext.setCount(Number(totalCount));
+      carContext.addWinners(result);
+    },
+    [carContext, paginationContext]
+  );
 
   useEffect(() => {
-    getWinnersData();
-  }, [isUpdatePage]);
+    getWinnersData(paginationContext.page);
+  }, [paginationContext.page]);
 
   return (
     <>
-      <h1>Winners({countOnPage})</h1>
+      <h1>Winners({paginationContext.count})</h1>
       <h2>Page #{paginationContext.page}</h2>
       <ButtonsOfPagination
         carOnPage={10}
-        count={Number(countOnPage)}
-        setIsUpdatePage={setIsUpdatePage}
         context={PaginationContextForWinnersPage}
       />
-      <ButtonsOfFilter winners={winners} setWinners={setWinners} />
-      <WinnersList winners={winners} />
+      <ButtonsOfFilter />
+      <WinnersList />
     </>
   );
 };

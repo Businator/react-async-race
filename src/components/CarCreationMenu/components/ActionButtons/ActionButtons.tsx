@@ -13,21 +13,22 @@ import { Winner } from '../../../../types';
 type ActionButtonsType = {
   setModalIsClose: React.Dispatch<React.SetStateAction<boolean>>;
   setWinner: React.Dispatch<React.SetStateAction<Winner[]>>;
-  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const ActionButtons = ({
   setModalIsClose,
   setWinner,
-  setIsCreateNewCar,
 }: ActionButtonsType) => {
   const carContext = useContext(CarContext);
   const paginationContext = useContext(PaginationContext);
 
-  const generateCars = () => {
+  const generateCars = async () => {
     const randomCarsList = generateRandomCars();
-    carContext.generateCars(randomCarsList);
-    setIsCreateNewCar(true);
+    await carContext.generateCars(randomCarsList);
+
+    const { items, count } = await getCars(paginationContext.page);
+    paginationContext.setCount(Number(count));
+    carContext.addCars(items);
   };
 
   const raceAllCars = async () => {

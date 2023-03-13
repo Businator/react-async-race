@@ -1,25 +1,27 @@
 import { useState, useContext } from 'react';
 import { CarContext } from '../../../../context/CarContext';
+import { getCars } from '../../../../api';
+import { PaginationContext } from '../../../../context/PaginationContext';
 
-export const CreationForm = ({
-  setIsCreateNewCar,
-}: {
-  setIsCreateNewCar: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+export const CreationForm = () => {
   const [carName, setCarName] = useState('');
   const [carColor, setCarColor] = useState('#000000');
 
   const carContext = useContext(CarContext);
+  const paginationContext = useContext(PaginationContext);
 
-  const submit = (event: { preventDefault: () => void }) => {
+  const submit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    carContext.createCar({
+    await carContext.createCar({
       name: carName,
       color: carColor,
     });
     setCarName('');
     setCarColor('#000000');
-    setIsCreateNewCar(true);
+
+    const { items, count } = await getCars(paginationContext.page);
+    carContext.addCars(items);
+    paginationContext.setCount(Number(count));
   };
 
   return (
